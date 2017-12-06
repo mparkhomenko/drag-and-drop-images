@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="/bootstrap/bootstrap.min.css">
+    <script src="/bootstrap/jquery-3.2.1.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <form role="form" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="name">Имя</label>
+                <input type="text" class="form-control" id="name" placeholder="Имя">
+            </div>
+            <div class="form-group">
+                <label for="email">E-mail</label>
+                <input type="email" class="form-control" id="email" placeholder="E-mail">
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone</label>
+                <input type="text" class="form-control" id="phone" placeholder="Phone">
+            </div>
+            <div class="form-group">
+                <!-- <label for="files">File input</label>
+                <input type="file" id="files" name="file[]" multiple> -->
+                <!-- <p>Загруженные файлы:</p> -->
+                <div class="dropzone" id="dropzone">Перетащите файлы сюда</div>
+                <span class="event-ok">Картинки добавлены</span>
+                <span class="event-nook">Это не картинка</span>
+            </div>
+            <div class="form-group">
+                <label>Комментарий</label><br>
+                <textarea id="message"></textarea>
+            </div>
+            <button type="button" class="btn btn-default" id="send">Отправить</button>
+        </form>  
+    </div>
+    <script src="/bootstrap/bootstrap.min.js"></script>
+    <script src="/script.js"></script>
+    <script>
+        let dropzone = document.getElementById("dropzone"),
+            tmp = new Array(),
+            check = new Array();
+
+        dropzone.ondrop = function(e) {
+            check = [];
+            this.className = 'dropzone';
+            this.innerHTML = 'Перетащите файлы сюда';
+            e.preventDefault();
+            tmp = e.dataTransfer.files;
+
+            for (let i = 0; i < tmp.length; i++) {
+                check.push(tmp[i].type.split('/')[0]);
+                console.log(check);
+                for (let j = 0; j < check.length; j++) {
+                    if (check[j] != "image") {
+                        $('.event-ok').css('display', 'none');
+                        $('.event-nook').css('display', 'block');
+                        // console.log(check);
+                        tmp = [];
+                        $('#send').attr("disabled", "disabled");
+                        return false;
+                    } else {
+                        $('.event-ok').css('display', 'block');
+                        $('.event-nook').css('display', 'none');
+                        $("#send").removeAttr("disabled");
+                        // console.log(check);
+                    }
+                }
+            }
+        };
+
+        dropzone.ondragover = function() {
+            this.className = 'dropzone dragover';
+            this.innerHTML = 'Отпустите мышку';
+            return false;
+        };
+
+        dropzone.ondragleave = function() {
+            this.className = 'dropzone';
+            this.innerHTML = 'Перетащите файлы сюда';
+            return false;
+        };
+    </script>
+</body>
+</html>

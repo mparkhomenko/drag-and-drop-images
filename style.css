@@ -1,0 +1,26 @@
+
+  
+  .dropzone {
+    width: 100px;
+    height: 100px;
+    border: 2px dashed #aaa;
+    color: #aaa;
+    padding-top: 25px;
+    text-align: center;
+  }
+  
+  .dropzone.dragover {
+    color: green;
+    border: 2px dashed #000;
+  }
+
+  .event-ok,
+  .event-nook {
+    color: forestgreen;
+    display: none;
+    width: 200px;
+  }
+
+  .event-nook {
+      color: red;
+  }
